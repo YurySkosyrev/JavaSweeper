@@ -12,7 +12,7 @@ public class JavaSweeper extends JFrame
     private JPanel panel;
     private final int COLS = 9;
     private final int ROWS = 9;
-    private final int BOMBS = 1; // количество бомб
+    private final int BOMBS = 10; // количество бомб
     private final int IMAGE_SIZE = 50; // размер картинки
 
     public static void main(String[] args)
