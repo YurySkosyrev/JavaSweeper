@@ -2,13 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import sweeper.Box;
 import sweeper.Coord;
+import sweeper.Game;
 import sweeper.Ranges;
 
-public class JavaSweeper extends JFrame {
+public class JavaSweeper extends JFrame
+{
+    private Game game;
 
     private JPanel panel;
-    private final int COLS = 15;
-    private final int ROWS = 1;
+    private final int COLS = 9;
+    private final int ROWS = 9;
+    private final int BOMBS = 1; // количество бомб
     private final int IMAGE_SIZE = 50; // размер картинки
 
     public static void main(String[] args)
@@ -18,7 +22,8 @@ public class JavaSweeper extends JFrame {
 
     private JavaSweeper()
     {
-        Ranges.setSize(new Coord(COLS, ROWS));
+        game = new Game(COLS, ROWS, BOMBS); // фасадный класс
+        game.start();
         setImages();
         initPanel();
         initFrame();
@@ -32,11 +37,8 @@ public class JavaSweeper extends JFrame {
             protected void paintComponent(Graphics g)  // данная функция вызываетя при отрисовке формы
             {
                 super.paintComponent(g);
-                for (Box box : Box.values())
-                {
-                    Coord coord = new Coord(box.ordinal() * IMAGE_SIZE, 0);
-                    g.drawImage((Image) box.image, coord.x, coord.y, this);
-                }
+                for (Coord coord : Ranges.getAllCoords())
+                    g.drawImage((Image) game.getBox(coord).image, coord.x * IMAGE_SIZE, coord.y * IMAGE_SIZE, this);
             }
         };
         panel.setPreferredSize(new Dimension(
@@ -47,13 +49,13 @@ public class JavaSweeper extends JFrame {
 
     private void  initFrame()
     {
-        pack();
         setDefaultCloseOperation((WindowConstants.EXIT_ON_CLOSE)); // закрытие программы при нажатии на крестик
         setTitle("Java Sweeper"); // заголовок окна
         setLocationRelativeTo(null); // центрирование заголовка по центру
         setResizable(false); // форма не будет менять размер
         setVisible(true);
         setIconImage(getImage("icon"));
+        pack();
     }
 
     private void setImages() // установка всех картинок
