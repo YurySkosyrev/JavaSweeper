@@ -6,7 +6,6 @@ public class Game
     private Bomb bomb;
     private Flag flag;
     private GameState state;
-    private int a, b;
 
 
     public GameState getState() {
