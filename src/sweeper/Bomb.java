@@ -4,7 +4,6 @@ class Bomb
 {
     private Matrix bombMap;
     private int totalBombs;
-    private int f;
 
     Bomb (int totalBombs)
     {
