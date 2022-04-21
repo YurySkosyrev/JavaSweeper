@@ -19,4 +19,8 @@ public enum Box
     NOBOMB;
 
     public Object image; // здесь хранится картинка, Object показывает, что хранится может что угодно, в зависимости от реализации
+
+    Box getNextNumberBox(){
+        return Box.values()[this.ordinal() + 1];
+    }
 }
