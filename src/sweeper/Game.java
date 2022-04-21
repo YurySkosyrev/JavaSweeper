@@ -7,6 +7,7 @@ public class Game
     private Flag flag;
     private GameState state;
 
+
     public GameState getState() {
         return state;
     }
