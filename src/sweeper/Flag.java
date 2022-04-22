@@ -1,24 +1,21 @@
 package sweeper;
-/*
-класс уровеня флагов
- */
 
 class Flag {
     private Matrix flagMap;
     private int countOfCloseBoxes;
 
-    void start(){
+    void start() {
         flagMap = new Matrix(Box.CLOSED);
-        countOfCloseBoxes = Ranges.getSize().x*Ranges.getSize().y;
+        countOfCloseBoxes = Ranges.getSize().x * Ranges.getSize().y;
     }
 
-    Box get (Coord coord){
+    Box get(Coord coord) {
         return flagMap.get(coord);
     }
 
     public void setOpenedToBox(Coord coord) {
         flagMap.set(coord, Box.OPENED);
-        countOfCloseBoxes --;
+        countOfCloseBoxes--;
     }
 
     private void setFlagedToBox(Coord coord) {
@@ -26,9 +23,13 @@ class Flag {
     }
 
     public void toggleFlagedToBox(Coord coord) {
-        switch (flagMap.get(coord)){
-            case FLAGED : setCloseToBox(coord); break;
-            case CLOSED : setFlagedToBox(coord); break;
+        switch (flagMap.get(coord)) {
+            case FLAGED:
+                setCloseToBox(coord);
+                break;
+            case CLOSED:
+                setFlagedToBox(coord);
+                break;
         }
     }
 
@@ -51,15 +52,15 @@ class Flag {
 
     void setNoBombToFlagedSafeBox(Coord coord) {
         if (flagMap.get(coord) == Box.FLAGED)
-            flagMap.set (coord, Box.NOBOMB);
+            flagMap.set(coord, Box.NOBOMB);
     }
 
 
     int getCountOfFlagedBoxesAround(Coord coord) {
-        int count =0;
+        int count = 0;
         for (Coord around : Ranges.getCoordsAround(coord))
             if (flagMap.get(around) == Box.FLAGED)
-                count ++;
-            return count;
+                count++;
+        return count;
     }
 }

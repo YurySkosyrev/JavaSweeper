@@ -8,24 +8,21 @@ import sweeper.Coord;
 import sweeper.Game;
 import sweeper.Ranges;
 
-public class JavaSweeper extends JFrame
-{
+public class JavaSweeper extends JFrame {
     private Game game;
 
     private JPanel panel;
     private JLabel label;
     private final int COLS = 9;
     private final int ROWS = 9;
-    private final int BOMBS = 10; // количество бомб
-    private final int IMAGE_SIZE = 50; // размер картинки
+    private final int BOMBS = 10;
+    private final int IMAGE_SIZE = 50;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new JavaSweeper();
     }
 
-    private JavaSweeper()
-    {
+    private JavaSweeper() {
         game = new Game(COLS, ROWS, BOMBS); // фасадный класс
         game.start();
         setImages();
@@ -34,13 +31,12 @@ public class JavaSweeper extends JFrame
         initFrame();
     }
 
-    private void initLabel(){
+    private void initLabel() {
         label = new JLabel("Welcome!");
         add(label, BorderLayout.SOUTH);
     }
 
-    private void initPanel()
-    {
+    private void initPanel() {
         panel = new JPanel() // создается анонимный класс
         {
             @Override
@@ -59,32 +55,35 @@ public class JavaSweeper extends JFrame
                 int y = e.getY() / IMAGE_SIZE;
                 Coord coord = new Coord(x, y);
                 if (e.getButton() == MouseEvent.BUTTON1)
-                    game.pressLeftButton (coord);
+                    game.pressLeftButton(coord);
                 if (e.getButton() == MouseEvent.BUTTON2)
                     game.start();
                 if (e.getButton() == MouseEvent.BUTTON3)
-                    game.pressRightButton (coord);
+                    game.pressRightButton(coord);
                 label.setText(getMasasge());
                 panel.repaint();
             }
         });
         panel.setPreferredSize(new Dimension(
                 Ranges.getSize().x * IMAGE_SIZE,
-                Ranges.getSize().y * IMAGE_SIZE)); // устанавливаем размеры панели, Dimension из модуля Java.awt
-        add(panel); // добавление панели, метод наследуется из класса JFrame
+                Ranges.getSize().y * IMAGE_SIZE));
+        add(panel);
     }
 
     private String getMasasge() {
-        switch (game.getState()){
-            case PLAYED : return "Think twice!";
-            case BOMBED : return "You lose";
-            case WINNER : return "You win";
-            default : return "";
+        switch (game.getState()) {
+            case PLAYED:
+                return "Think twice!";
+            case BOMBED:
+                return "You lose";
+            case WINNER:
+                return "You win";
+            default:
+                return "";
         }
     }
 
-    private void  initFrame()
-    {
+    private void initFrame() {
         setDefaultCloseOperation((WindowConstants.EXIT_ON_CLOSE)); // закрытие программы при нажатии на крестик
         setTitle("Java Sweeper"); // заголовок окна
         setResizable(false); // форма не будет менять размер
@@ -100,7 +99,7 @@ public class JavaSweeper extends JFrame
             box.image = getImage(box.name().toLowerCase());
     }
 
-    private Image getImage (String name) // отображение картинки по названию
+    private Image getImage(String name) // отображение картинки по названию
     {
         String filename = "img/" + name + ".png";
         ImageIcon icon = new ImageIcon(getClass().getResource(filename)); // нужно указать в какой папке находятся ресурсы,

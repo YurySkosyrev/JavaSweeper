@@ -1,37 +1,32 @@
 package sweeper;
-// класс для работы с бомбами
-class Bomb
-{
+
+class Bomb {
     private Matrix bombMap;
     private int totalBombs;
 
-    Bomb (int totalBombs)
-    {
+    Bomb(int totalBombs) {
         this.totalBombs = totalBombs;
         fixBombCount();
     }
 
-    void start ()
-    {
-        bombMap = new Matrix (Box.ZERO);
-        for (int j = 0; j < totalBombs; j ++)
+    void start() {
+        bombMap = new Matrix(Box.ZERO);
+        for (int j = 0; j < totalBombs; j++)
             placeBomb();
     }
 
-    Box get (Coord coord)
-    {
+    Box get(Coord coord) {
         return bombMap.get(coord);
     }
 
-    private void fixBombCount(){
-        int maxBombs = Ranges.getSize().x*Ranges.getSize().y/2;
+    private void fixBombCount() {
+        int maxBombs = Ranges.getSize().x * Ranges.getSize().y / 2;
         if (totalBombs > maxBombs)
             totalBombs = maxBombs;
     }
 
-    private void placeBomb()
-    {
-        while (true){
+    private void placeBomb() {
+        while (true) {
             Coord coord = Ranges.getRandomCoord();
             if (Box.BOMB == bombMap.get(coord))
                 continue;
@@ -41,9 +36,9 @@ class Bomb
         }
     }
 
-    private void incNumbersAroundBomb (Coord coord){
+    private void incNumbersAroundBomb(Coord coord) {
         for (Coord around : Ranges.getCoordsAround(coord))
-            if (Box.BOMB != bombMap.get (around))
+            if (Box.BOMB != bombMap.get(around))
                 bombMap.set(around, bombMap.get(around).getNextNumberBox());
     }
 

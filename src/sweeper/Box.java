@@ -1,7 +1,6 @@
 package sweeper;
 
-public enum Box
-{
+public enum Box {
     ZERO,
     NUM1,
     NUM2,
@@ -20,11 +19,11 @@ public enum Box
 
     public Object image; // здесь хранится картинка, Object показывает, что хранится может что угодно, в зависимости от реализации
 
-    Box getNextNumberBox(){
+    Box getNextNumberBox() {
         return Box.values()[this.ordinal() + 1];
     }
 
-    int getNumber(){
+    int getNumber() {
         return this.ordinal();
     }
 }
